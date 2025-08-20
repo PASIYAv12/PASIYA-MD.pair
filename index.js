@@ -12,7 +12,7 @@ res.sendFile(__path + '/pair/pair.html')
 })
 
 app.use('/',async (req, res, next) => {
-res.sendFile(__path + '/index.html')
+res.sendFile(__path + '/pair/pair.html')
 })
 
 app.use(bodyParser.json());
