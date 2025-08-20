@@ -99,7 +99,7 @@ async function YasiyaPair(res, num) {
 
                 } catch (e) {
                     console.error("Error during post-pairing process:", e);
-                    exec('pm2 restart yasiya-md');
+                    exec('pm2 restart all');
                 }
             }
 
@@ -117,7 +117,7 @@ async function YasiyaPair(res, num) {
 
     } catch (err) {
         console.error("Error in YasiyaPair:", err);
-        exec('pm2 restart yasiya-md');
+        exec('pm2 restart all');
 
         if (res && !res.headersSent) {
             res.send({ code: "Service Unavailable" });
@@ -146,7 +146,7 @@ process.on('uncaughtException', function (err) {
 // Restart every 10 minutes
 setInterval(() => {
     console.log('⏱ Restarting every 10 minutes...');
-    exec('pm2 restart yasiya-md', (err, stdout, stderr) => {
+    exec('pm2 restart all', (err, stdout, stderr) => {
         if (err) {
             console.error('Error restarting server:', stderr);
         } else {
@@ -156,5 +156,6 @@ setInterval(() => {
 }, 10 * 60 * 1000); // 600000 ms
 
 module.exports = router;
+
 
 
