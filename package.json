@@ -1,12 +1,12 @@
 {
-"name": "yasiya-md",
+"name": "pasiya-md",
     "version": "1.0.0",
     "description": "A multi functional whatsapp bot Web.",
     "main": "index.js",
     "scripts": {
-      "start": "pm2 start index.js --deep-monitoring --attach --name yasiya-md",
-      "stop": "pm2 stop yasiya-md",
-     "restart": "pm2 restart yasiya-md"
+      "start": "pm2 start index.js --deep-monitoring --attach --name pasiya-md",
+      "stop": "pm2 stop pasiya-md",
+     "restart": "pm2 restart pasiya-md"
     },
   "dependencies": {
     "@whiskeysockets/baileys": "latest",
