@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YASIYA-MD | LOGING</title>
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --bg-light: #f5f5f5;
+            --primary-dark: #bb86fc;
+            --primary-light: #6200ee;
+            --surface-dark: #1e1e1e;
+            --surface-light: #ffffff;
+            --text-dark: #ffffff;
+            --text-light: #121212;
+            --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --gradient-dark-1: #121212;
+            --gradient-dark-2: #1e1e1e;
+            --gradient-dark-3: #262626;
+            --gradient-light-1: #f0f0f0;
+            --gradient-light-2: #f8f8f8;
+            --gradient-light-3: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        @keyframes gradientDark {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes gradientLight {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(
+                135deg,
+                var(--gradient-dark-1) 0%,
+                var(--gradient-dark-2) 50%,
+                var(--gradient-dark-3) 100%
+            );
+            background-size: 200% 200%;
+            animation: gradientDark 15s ease infinite;
+        }
+
+        body.light-mode {
+            color: var(--text-light);
+            background: linear-gradient(
+                135deg,
+                var(--gradient-light-1) 0%,
+                var(--gradient-light-2) 50%,
+                var(--gradient-light-3) 100%
+            );
+            background-size: 200% 200%;
+            animation: gradientLight 15s ease infinite;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, var(--primary-dark), #673ab7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(103, 58, 183, 0.5);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .header-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .light-mode .header-logo {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-title-container {
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(10px);
+            margin: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .light-mode header {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: var(--surface-dark);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            cursor: pointer;
+            box-shadow: var(--shadow-dark);
+        }
+
+        .light-mode .theme-toggle {
+            background-color: var(--surface-light);
+            box-shadow: var(--shadow-light);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: var(--primary-dark);
+            left: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .light-mode .toggle-slider {
+            transform: translateX(30px);
+            background-color: var(--primary-light);
+        }
+
+        .sun-icon, .moon-icon {
+            font-size: 14px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .sun-icon {
+            right: 8px;
+        }
+
+        .moon-icon {
+            left: 8px;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .main-container {
+            background-color: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .light-mode .main-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            max-width: 600px;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        .app-button {
+            position: relative;
+            background-color: var(--surface-dark);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow-dark);
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .app-button::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(90deg, 
+                #ff0000, #ff7f00, #ffff00, #00ff00, 
+                #0000ff, #4b0082, #8b00ff, #ff0000);
+            border-radius: 16px;
+            z-index: -1;
+            animation: animate-border 3s linear infinite;
+            background-size: 400%;
+        }
+
+        @keyframes animate-border {
+            0% {
+                background-position: 0%;
+            }
+            100% {
+                background-position: 400%;
+            }
+        }
+
+        .app-button::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background-color: var(--surface-dark);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .light-mode .app-button::after {
+            background-color: var(--surface-light);
+        }
+
+        .light-mode .app-button {
+            background-color: transparent;
+            color: var(--text-light);
+            box-shadow: var(--shadow-light);
+        }
+
+        .app-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(187, 134, 252, 0.3);
+        }
+
+        .light-mode .app-button:hover {
+            box-shadow: 0 10px 25px rgba(98, 0, 238, 0.2);
+        }
+
+        .app-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            .app-button {
+                width: 140px;
+                height: 140px;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-button {
+                width: 100%;
+                max-width: 200px;
+                height: 120px;
+                flex-direction: row;
+                justify-content: flex-start;
+                padding: 0 1.5rem;
+            }
+        }
+
+        .icon {
+            font-size: 2rem;
+            color: var(--primary-dark);
+        }
+
+        .light-mode .icon {
+            color: var(--primary-light);
+        }
+
+        .whatsapp-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #25D366;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 100;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.7);
+        }
+
+        .whatsapp-button:active {
+            transform: scale(0.95);
+        }
+
+        .whatsapp-icon {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        footer {
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+            background-color: rgba(18, 18, 18, 0.8);
+            margin: 1rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .light-mode footer {
+            background-color: rgba(245, 245, 245, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .button-container {
+                gap: 1rem;
+            }
+
+            .app-button {
+                width: 140px;
+                height: 140px;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .app-button {
+                width: 100%;
+                max-width: 200px;
+                height: 120px;
+                flex-direction: row;
+                justify-content: flex-start;
+                padding: 0 1.5rem;
+            }
+
+            .icon {
+                font-size: 1.5rem;
+                margin-right: 1rem;
+            }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(187, 134, 252, 0.2);
+            pointer-events: none;
+        }
+
+        .light-mode .particle {
+            background: rgba(98, 0, 238, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="loading-screen">
+        <div class="logo">
+ 
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGAAJAY_l3BpNIZCyKI_I0_qtCrj09RwTSkg&s" alt="Logo" id="logoImage">
+        </div>
+    </div>
+
+    <header>
+        <div class="header-title-container">
+            <div class="header-logo">
+ 
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGAAJAY_l3BpNIZCyKI_I0_qtCrj09RwTSkg&s" alt="Logo" id="headerLogoImage">
+            </div>
+            <h1>App Interface</h1>
+        </div>
+        <div class="theme-toggle" id="themeToggle">
+            <div class="toggle-slider"></div>
+            <span class="moon-icon">🌙</span>
+            <span class="sun-icon">☀️</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="main-container">
+            <h2>Connect with ease</h2>
+            <div class="button-container">
+                <a href="pair/pair.html" class="app-button" id="pairCodeBtn" style="text-decoration: none">
+                    <div class="icon">🔗</div>
+                    <span>Pair Code</span>
+                </a>
+                <a href="qr/qr.html" class="app-button" id="qrScannerBtn" style="text-decoration: none">
+                    <div class="icon">📱</div>
+                    <span>QR Scanner</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <a href="https://wa.me/94740952096" class="whatsapp-button" id="whatsappBtn" style="text-decoration: none">
+        <div class="whatsapp-icon">💬</div>
+    </a>
+
+    <footer>
+        <p>© 2025 Modern App Interface. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Create particles
+        document.addEventListener('DOMContentLoaded', () => {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 5 and 20px
+                const size = Math.random() * 15 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                const xPos = Math.random() * 100;
+                const yPos = Math.random() * 100;
+                particle.style.left = `${xPos}%`;
+                particle.style.top = `${yPos}%`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                // Random animation
+                const animDuration = Math.random() * 50 + 30;
+                particle.style.animation = `float ${animDuration}s linear infinite`;
+                
+                // Create float animation dynamically
+                const styleSheet = document.styleSheets[0];
+                const keyframes = `@keyframes float {
+                    0% {
+                        transform: translate(0, 0);
+                    }
+                    50% {
+                        transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px);
+                    }
+                    100% {
+                        transform: translate(0, 0);
+                    }
+                }`;
+                
+                try {
+                    styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+                } catch (e) {
+                    // Some browsers might not support this method
+                    console.log('Could not add animation rule');
+                }
+                
+                particlesContainer.appendChild(particle);
+            }
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const logo = document.querySelector('.logo');
+            const loadingScreen = document.querySelector('.loading-screen');
+            
+            logo.style.animation = 'spin 1.5s ease-in-out';
+   
+            setTimeout(() => {
+                logo.style.animation = 'none';
+                logo.style.transform = 'translateX(50px) rotate(360deg)';
+                logo.style.transition = 'transform 0.8s ease';
+            }, 1500);
+
+            setTimeout(() => {
+                logo.style.transform = 'translateX(-50px) rotate(720deg)';
+                logo.style.transition = 'transform 0.8s ease';
+            }, 2300);
+
+            setTimeout(() => {
+                logo.style.transform = 'translateX(0) rotate(1080deg)';
+                logo.style.transition = 'transform 0.8s ease';
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    loadingScreen.style.transition = 'opacity 0.8s ease';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 800);
+                }, 800);
+            }, 3100);
+        });
+
+    
+        const logoImage = document.getElementById('logoImage');
+        logoImage.onerror = function() {
+            this.style.display = 'none';
+            document.querySelector('.logo').innerHTML = 'A';
+        };
+
+        const headerLogoImage = document.getElementById('headerLogoImage');
+        headerLogoImage.onerror = function() {
+            this.style.display = 'none';
+            document.querySelector('.header-logo').innerHTML = 'A';
+        };
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const isLightMode = document.body.classList.contains('light-mode');
+            localStorage.setItem('lightMode', isLightMode);
+        });
+
+        if (localStorage.getItem('lightMode') === 'true') {
+            document.body.classList.add('light-mode');
+        }
+
+        const pairCodeBtn = document.getElementById('pairCodeBtn');
+        const qrScannerBtn = document.getElementById('qrScannerBtn');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+
+        pairCodeBtn.addEventListener('click', (e) => {
+            pairCodeBtn.classList.add('active');
+            setTimeout(() => {
+                pairCodeBtn.classList.remove('active');
+            }, 300);
+        });
+
+        qrScannerBtn.addEventListener('click', (e) => {
+            qrScannerBtn.classList.add('active');
+            setTimeout(() => {
+                qrScannerBtn.classList.remove('active');
+            }, 300);
+        });
+
+        whatsappBtn.addEventListener('click', (e) => {
+            whatsappBtn.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                whatsappBtn.style.transform = 'scale(1)';
+            }, 300);
+        });
+
+
+    </script>
+
+    <script src="disabled.js"></script>
+</body>
+</html>

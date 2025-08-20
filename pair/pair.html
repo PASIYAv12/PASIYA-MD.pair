@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YASIYA-MD | PAIR CODE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #1a1a1a 50%, #0a0a0a 75%, #000000 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Enhanced Animated Background */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bg-gradient {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 10% 20%, rgba(100, 100, 255, 0.1) 0%, transparent 70%),
+        radial-gradient(ellipse at 90% 80%, rgba(255, 100, 180, 0.1) 0%, transparent 70%),
+        radial-gradient(ellipse at 50% 50%, rgba(100, 255, 200, 0.05) 0%, transparent 70%);
+      animation: gradientMove 20s ease-in-out infinite;
+    }
+
+    @keyframes gradientMove {
+      0%, 100% { 
+        transform: translateX(0) translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      25% { 
+        transform: translateX(-30px) translateY(-20px) rotate(1deg);
+        opacity: 0.8;
+      }
+      50% { 
+        transform: translateX(20px) translateY(30px) rotate(-1deg);
+        opacity: 0.9;
+      }
+      75% { 
+        transform: translateX(30px) translateY(-10px) rotate(0.5deg);
+        opacity: 0.8;
+      }
+    }
+
+    /* Floating Orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(45deg, rgba(100, 150, 255, 0.3), rgba(255, 100, 150, 0.3));
+      animation: floatOrb 15s ease-in-out infinite;
+      filter: blur(1px);
+    }
+
+    .orb:nth-child(1) {
+      width: 60px;
+      height: 60px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+      animation-duration: 20s;
+    }
+
+    .orb:nth-child(2) {
+      width: 80px;
+      height: 80px;
+      top: 70%;
+      right: 15%;
+      animation-delay: 5s;
+      animation-duration: 25s;
+    }
+
+    .orb:nth-child(3) {
+      width: 40px;
+      height: 40px;
+      bottom: 30%;
+      left: 20%;
+      animation-delay: 10s;
+      animation-duration: 18s;
+    }
+
+    .orb:nth-child(4) {
+      width: 70px;
+      height: 70px;
+      top: 10%;
+      right: 25%;
+      animation-delay: 15s;
+      animation-duration: 22s;
+    }
+
+    @keyframes floatOrb {
+      0%, 100% {
+        transform: translateY(0px) translateX(0px) scale(1);
+        opacity: 0.3;
+      }
+      25% {
+        transform: translateY(-30px) translateX(20px) scale(1.1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(20px) translateX(-15px) scale(0.9);
+        opacity: 0.4;
+      }
+      75% {
+        transform: translateY(-10px) translateX(25px) scale(1.05);
+        opacity: 0.5;
+      }
+    }
+
+    /* Enhanced floating particles */
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: floatParticle 8s ease-in-out infinite;
+      filter: blur(0.5px);
+    }
+
+    .particle:nth-child(1) { width: 3px; height: 3px; top: 15%; left: 25%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 4px; height: 4px; top: 25%; right: 20%; animation-delay: 2s; }
+    .particle:nth-child(3) { width: 2px; height: 2px; top: 65%; left: 15%; animation-delay: 4s; }
+    .particle:nth-child(4) { width: 5px; height: 5px; bottom: 20%; right: 30%; animation-delay: 1s; }
+    .particle:nth-child(5) { width: 3px; height: 3px; top: 45%; right: 10%; animation-delay: 3s; }
+    .particle:nth-child(6) { width: 4px; height: 4px; bottom: 40%; left: 35%; animation-delay: 5s; }
+
+    @keyframes floatParticle {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+      }
+      25% { 
+        transform: translateY(-40px) rotate(90deg);
+        opacity: 0.8;
+      }
+      50% { 
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 0.5;
+      }
+      75% { 
+        transform: translateY(-30px) rotate(270deg);
+        opacity: 0.7;
+      }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 60px);
+      padding-bottom: 60px;
+    }
+
+    .box {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      padding: 50px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      /* Enhanced shadow effects */
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.6),
+        0 10px 20px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 60px rgba(124, 119, 198, 0.1);
+      animation: slideIn 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      animation: shimmer 6s infinite;
+    }
+
+    .box::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, rgba(124, 119, 198, 0.3), rgba(255, 119, 198, 0.3));
+      border-radius: 32px;
+      z-index: -1;
+      animation: borderGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes borderGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .fa-user {
+      font-size: 3rem;
+      color: #7c77c6;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+      text-shadow: 0 0 20px rgba(124, 119, 198, 0.5);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .centered-text {
+      color: #ffffff;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    h6 {
+      color: #b0b0b0;
+      font-size: 1rem;
+      margin-bottom: 30px;
+      font-weight: 400;
+    }
+
+    .input-container {
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    #number {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+      font-size: 1.1rem;
+      outline: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #number:focus {
+      border-color: #7c77c6;
+      box-shadow: 0 0 25px rgba(124, 119, 198, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3);
+      transform: scale(1.02);
+    }
+
+    #number::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    #submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #7c77c6 0%, #ff77c6 100%);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(124, 119, 198, 0.3);
+    }
+
+    #submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(124, 119, 198, 0.5);
+    }
+
+    #submit:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 20px rgba(124, 119, 198, 0.4);
+    }
+
+    #submit::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    #submit:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    #loading-spinner {
+      display: none;
+      margin: 20px 0;
+      color: #7c77c6;
+    }
+
+    .fa-spinner {
+      font-size: 2rem;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    #pair {
+      margin-top: 20px;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #copy {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px 25px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #copy:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .error-message {
+      color: #ff6b6b !important;
+      background: rgba(255, 107, 107, 0.1);
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      margin: 10px 0;
+      font-weight: 500;
+    }
+
+    /* Footer Styles */
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.9) 100%);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 12px 0;
+      z-index: 1000;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-text {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-text i {
+      color: #ff6b6b;
+      animation: heartbeat 2s infinite;
+    }
+
+    /* Floating Contact Button */
+    .floating-contact {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      z-index: 1500;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s ease;
+      animation: floatButton 3s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .floating-contact:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+    }
+
+    .floating-contact i {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .floating-contact::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgba(37, 211, 102, 0.3);
+      animation: pulse-ring 2s infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes floatButton {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(15px);
+      z-index: 2000;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 25px;
+      padding: 40px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      animation: scaleIn 0.4s ease-out;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      color: #ffffff;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .modal-header i {
+      color: #7c77c6;
+      margin-right: 10px;
+    }
+
+    .contact-options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .contact-option {
+      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-option:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .contact-option i {
+      font-size: 1.2rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .contact-option.yasiya {
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    }
+
+    .contact-option.dev {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-btn:hover {
+      color: #ff6b6b;
+    }
+
+    /* Enhanced Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .box {
+        padding: 30px 25px;
+        margin: 15px;
+        border-radius: 25px;
+        box-shadow: 
+          0 15px 35px rgba(0, 0, 0, 0.6),
+          0 8px 18px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1),
+          0 0 40px rgba(124, 119, 198, 0.1);
+      }
+      
+      .centered-text {
+        font-size: 1.5rem;
+      }
+      
+      .fa-user {
+        font-size: 2.5rem;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .modal-content {
+        padding: 30px 20px;
+        border-radius: 20px;
+      }
+
+      .floating-contact {
+        bottom: 80px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+      }
+
+      .floating-contact i {
+        font-size: 1.3rem;
+      }
+
+      /* Adjust orb sizes for mobile */
+      .orb:nth-child(1) { width: 40px; height: 40px; }
+      .orb:nth-child(2) { width: 60px; height: 60px; }
+      .orb:nth-child(3) { width: 30px; height: 30px; }
+      .orb:nth-child(4) { width: 50px; height: 50px; }
+    }
+
+    @media (max-width: 480px) {
+      .box {
+        padding: 25px 20px;
+        border-radius: 20px;
+        box-shadow: 
+          0 12px 30px rgba(0, 0, 0, 0.6),
+          0 6px 15px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1),
+          0 0 30px rgba(124, 119, 198, 0.1);
+      }
+      
+      .centered-text {
+        font-size: 1.3rem;
+      }
+      
+      h6 {
+        font-size: 0.9rem;
+      }
+      
+      #number, #submit {
+        font-size: 1rem;
+      }
+
+      .main {
+        min-height: calc(100vh - 50px);
+        padding-bottom: 50px;
+      }
+
+      /* Further adjust orb sizes for small screens */
+      .orb:nth-child(1) { width: 30px; height: 30px; }
+      .orb:nth-child(2) { width: 45px; height: 45px; }
+      .orb:nth-child(3) { width: 25px; height: 25px; }
+      .orb:nth-child(4) { width: 35px; height: 35px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Enhanced Animated Background -->
+  <div class="animated-bg">
+    <div class="bg-gradient"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- Enhanced floating particles -->
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+
+  <div class="container">
+    <div class="main">
+      <div class="box" id="box">
+        <div id="text">
+          <i class="fa fa-user"></i>
+          <h3 class="centered-text">Link with phone number</h3>
+          <br>
+          <h6>🔢 Enter your number with country code.</h6>
+          <div class="input-container">
+            <input placeholder="+94729xxxxxx" type="number" id="number" name="">
+            <button id="submit">Submit</button>
+          </div>
+          <!-- Loading spinner -->
+          <div id="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+          <br>
+          <main id="pair"></main>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-text">
+        <span>© 2025 YASIYA-MD | ALL RIGHTS RESERVED</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Contact Button -->
+  <button class="floating-contact" onclick="openContactModal()">
+    <i class="fas fa-comments"></i>
+  </button>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeContactModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="modal-header">
+        <i class="fas fa-address-book"></i>
+        Get in Touch
+      </div>
+      <div class="contact-options">
+        <a href="#" class="contact-option yasiya" onclick="contactYasiya()">
+          <i class="fab fa-whatsapp"></i>
+          <div>
+            <div style="font-weight: 600;">Contact Dark Yasiya</div>
+            <div style="font-size: 0.8rem; opacity: 0.8;">WhatsApp Support</div>
+          </div>
+        </a>
+        <a href="#" class="contact-option dev" onclick="contactDev()">
+          <i class="fas fa-code"></i>
+          <div>
+            <div style="font-weight: 600;">Contact Developer</div>
+            <div style="font-size: 0.8rem; opacity: 0.8;">Technical Support</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    let a = document.getElementById("pair");
+    let b = document.getElementById("submit");
+    let c = document.getElementById("number");
+    let box = document.getElementById("box");
+
+    async function Copy() {
+      let text = document.getElementById("copy").innerText;
+      let obj = document.getElementById("copy");
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = "✔️ COPIED";
+      obj.style.color = "#4CAF50";
+      obj.style.fontWeight = "bold";
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style.color = "#ffffff";
+        obj.style.fontWeight = "bold";
+      }, 1000);
+    }
+
+    b.addEventListener("click", async (e) => {
+      e.preventDefault();
+      
+      // Button click animation
+      b.style.transform = "scale(0.95)";
+      setTimeout(() => {
+        b.style.transform = "scale(1)";
+      }, 150);
+      
+      if (!c.value) {
+        a.innerHTML = '<div class="error-message">❗Enter your whatsapp number with country code.</div>';
+      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
+        a.innerHTML = '<div class="error-message">❗Invalid number format. Please try again.</div>';
+      } else {
+        const bc = c.value.replace(/[^0-9]/g, "");
+        let bb = "";
+        let bbc = "";
+        const cc = bc.split('');
+        cc.map(a => {
+          bbc += a;
+          if (bbc.length == 3) {
+            bb += " " + a;
+          } else if (bbc.length == 8) {
+            bb += " " + a;
+          } else {
+            bb += a;
+          }
+        });
+        c.type = "text";
+        c.value = "+" + bb;
+        c.style.color = "#ffffff";
+        c.style.fontSize = "1.1rem";
+        
+        // Show loading spinner
+        document.getElementById("loading-spinner").style.display = "block";
+        a.innerHTML = '';
+        
+        try {
+          let { data } = await axios(`/code?number=${bc}`);
+
+          let code = data?.code || data?.error || "❗ Service Unavailable";
+          a.innerHTML = `
+            <div id="copy" onclick="Copy()" style="color:#ff6b6b;font-weight:bold;font-size:1.2rem;">
+              CODE: <span style="color:#ffffff;font-weight:bold;">${code}</span>
+            </div>
+          `;
+        } catch (error) {
+          const msg = error?.response?.data?.error;
+          if (msg === 'Try again after 5 minutes.') {
+            a.innerHTML = '<div class="error-message">⏳ Try again after 5 minutes.</div>';
+          } else {
+            a.innerHTML = '<div class="error-message">❗ Service Unavailable. Please try again.</div>';
+          }
+        }
+
+        
+        // Hide loading spinner
+        document.getElementById("loading-spinner").style.display = "none";
+      }
+    });
+
+    // Add enter key support
+    c.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        b.click();
+      }
+    });
+
+    // Modal Functions
+    function openContactModal() {
+      document.getElementById('contactModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeContactModal() {
+      document.getElementById('contactModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    function contactYasiya() {
+      // Add your WhatsApp link here
+      window.open('https://wa.me/94743548986?text=Hello%20Dark%20Yasiya%20Support', '_blank');
+    }
+
+    function contactDev() {
+      // Add your developer contact link here
+      window.open('https://wa.me/94740952096?text=Hello%20Site-Developer%20Support', '_blank');
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('contactModal');
+      if (event.target === modal) {
+        closeContactModal();
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeContactModal();
+      }
+    });
+  </script>
+</body>
+</html>

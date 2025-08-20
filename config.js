@@ -1,0 +1,6 @@
+module.exports = {
+  SESSION_MESSAGE: '',
+  BASE64_START: 'YASIYA-MD=',
+  MEGA_START: 'YASIYA-MD~',
+  YMDDB_START: 'YASIYA-MD?'
+}
